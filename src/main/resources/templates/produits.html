@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Produits</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"
+th:href="@{css/bootstrap.min.css}"
+></link>
+</head>
+<body>
+<div class="container">
+<form th:action="@{index}" method="get">
+<label>Mot clé:</label>
+<input type="text" name="cle" th:value="${cle}"/>
+<button class="btn btn-primary">Chercher</button>
+</form>
+</div>
+<div class="container">
+<h3>Liste des produits</h3>
+<table class="table">
+<thead>
+<tr>
+<th>ID</th> <th>Désignation</th> <th>Prix</th><th>Quantité</th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="p:${listProduits}">
+<td th:text="${p.id}"></td>
+<td th:text="${p.designation}"></td>
+<td th:text="${p.prix}"></td>
+<td th:text="${p.quantite}"></td>
+<td><a th:href="@{delete(id=${p.id},pages=${pageCourante},size=${size},cle=${cle})}">Delete</a></td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div>
+<ul  class="nav">
+<li th:classe="${pageCourante}==${status.index}?'active':''"  th:each="pa,status:${pages}" >
+<a class="nav-link" th:href="@{index(page=${status.index},size=${size},cle=${cle})}" th:text="${status.index}" ></a>
+</li>
+</ul>
+</div>
+</div>
+</body>
+</html>
